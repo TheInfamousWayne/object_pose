@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16.4) 
+cmake_minimum_required(VERSION 3.15.5)
 project (object_pose)
 find_package(OpenCV REQUIRED )
 

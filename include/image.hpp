@@ -16,8 +16,15 @@ class Image {
 	Mat image;
 	map<string, ColorBounds> colors;
 	map<string, Mat> masks; // individual color segment mask
-	map<string, vector<int, int>> pixel_dataset; // pixel coordinates of the region of interest
-	maps<string, int> color_count; // total pixels with a particular color
+	map<string, vector<pair<int, int>>> pixel_dataset; // pixel coordinates of the region of interest
+	map<string, int> color_count; // total pixels with a particular color
+	typedef function<bool(pair<string, int>, pair<string, int>)> Comparator;
+	Comparator compFunctor =
+			[](pair<string, int> elem1, pair<string, int> elem2) {
+				return elem1.second > elem2.second; // descending order
+			};
+	// Declaring a set that will store the pairs using above comparision logic
+	set<pair<string, int>, Comparator> dominant_colors;
 
 public:
 	Image(Mat);
@@ -27,21 +34,8 @@ public:
 	void create_pixel_dataset(const string&);
 	void pipeline(const string&);
 	void find_dominant_colors(const int);
-	void sort_by_count();
 	void show();
 };
-
-void Image::create_pixel_dataset(const string& color) {
-	vector<int, int> poi; //pixels_of_interest
-	for (int i=0; i < masks[color].rows; ++i){
-		for (int j=0; j < masks[color].cols; ++j){
-			if ((int)masks[color].at<uchar>(i, j) == 255)
-				poi.push_back(i,j);
-		}
-	}
-	pixel_dataset[color] = poi;
-	color_count[color] = poi.size();
-}
 
 Image::Image (Mat img) {
 	image = img;
@@ -55,81 +49,71 @@ Image::Image (Mat img) {
 	cvtColor(image, image, COLOR_RGB2HSV);
 }
 
-void Image::create_mask(const string& color) {
-	cout<<colors[color].name<<endl;
-	Mat mask;
-	auto lower = colors[color].lower;
-	auto upper = colors[color].upper;
-	inRange(image, Scalar(lower[0], lower[1], lower[2]), Scalar(upper[0], upper[1], upper[2]), mask);
-	masks[color] = {mask};
-	// cout << "Mask : " << mask.size() << endl;
-	// cout << "Image: " << image.size() << endl;
-	string var = to_string(rand()%1000);
-	namedWindow(var, WINDOW_AUTOSIZE);
-	imshow(var, image);
-	waitKey(0);
-	// imshow("sd", mask);
-}
+//void Image::start() {
+//	vector<thread> vecOfThreads;
+//	// create color masks
+//	for (auto& i : colors) {
+//		thread th(&Image::pipeline, this, i.first);
+//		vecOfThreads.push_back(move(th));
+//	}
+//	// wait for threads to finish
+//	for (thread & th : vecOfThreads) {
+//        // If thread Object is Joinable then Join that thread.
+//        if (th.joinable())
+//            th.join();
+//    }
+//    // display masks
+//    show();
+//
+//}
 
-void Image::sort_by_count() {
-	// Defining a lambda function to compare two pairs. It will compare two pairs using second field
-	typedef function<bool(pair<string, int>, pair<string, int>)> Comparator;
-	Comparator compFunctor = 
-			[](pair<string, int> elem1 ,pair<tring, int> elem2){
-				return elem1.second > elem2.second; // descending order
-			};
-	// Declaring a set that will store the pairs using above comparision logic
-	set<pair<string, int>, Comparator> dominent_colors(
-			color_count.begin(), color_count.end(), compFunctor);
- 	
-	set<pair<string, int>::iterator it = dominent_colors.begin();
-
-
-
- 	return dominent_colors
-}
-
-void Image::find_dominant_colors(const int N) { // N dominent colors 
-	sort_by_count();
+void Image::startSingleThread() {
+	for (auto& i : colors) {
+		pipeline(i.first);
+	}
 }
 
 void Image::pipeline(const string& color) {
 	create_mask(color);
 	create_pixel_dataset(color);
 	find_dominant_colors(3);
+	cout << "X\n" ;
 }
 
-void Image::start() {
-	vector<thread> vecOfThreads;
-	// create color masks
-	for (auto& i : colors) {
-		thread th(&Image::pipeline, this, i.first);
-		vecOfThreads.push_back(move(th));
+void Image::create_mask(const string& color) {
+	Mat mask;
+	auto lower = colors[color].lower;
+	auto upper = colors[color].upper;
+	inRange(image, Scalar(lower[0], lower[1], lower[2]), Scalar(upper[0], upper[1], upper[2]), mask);
+	masks[color] = {mask};
+	string var = to_string(rand()%1000);
+}
+
+void Image::create_pixel_dataset(const string& color) {
+	vector<pair<int, int>> poi; //pixels_of_interest
+	for (int i=0; i < masks[color].rows; ++i) {
+		for (int j=0; j < masks[color].cols; ++j) {
+			if ((int)masks[color].at<uchar>(i, j) == 255)
+				poi.push_back({i,j});
+		}
 	}
-	// wait for threads to finish
-	for (thread & th : vecOfThreads) {
-        // If thread Object is Joinable then Join that thread.
-        if (th.joinable())
-            th.join();
+	pixel_dataset[color] = {poi};
+	color_count[color] = poi.size();
+}
+
+void Image::find_dominant_colors(const int N) { // N dominant colors 
+    for (auto& i : color_count) {
+        dominant_colors.insert({i.first, i.second});
     }
-    // display masks 
-    show();
-
+    for (auto i : dominant_colors) {
+        cout << i.first << " " << i.second << "\n";
+    }
 }
-
-
-void Image::startSingleThread() {
-	for (auto& i : colors) {
-		create_mask(i.first);
-	}
-}
-
 
 void Image::show() {
 	for (auto& m : masks) {
-		
-        namedWindow(m.first, WINDOW_AUTOSIZE );
-        cout<<"Waiting to display"<<endl;
+        namedWindow(m.first, WINDOW_AUTOSIZE);
+        cout << "Waiting to display" << endl;
         imshow(m.first, image);
         waitKey(0);
     }

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-../include/header.h
+../include/header.hpp
 stdio.h
 -
 stdlib.h
@@ -26,8 +26,8 @@ typeinfo
 opencv2/opencv.hpp
 -
 
-/Users/vaibhavagrawal/object_pose/src/main.cpp
-header.h
+/Users/vagrawal/new/object_pose/src/main.cpp
+header.hpp
 -
 image.hpp
 -
