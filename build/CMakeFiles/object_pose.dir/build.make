@@ -57,9 +57,35 @@ include CMakeFiles/object_pose.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/object_pose.dir/flags.make
 
+CMakeFiles/object_pose.dir/src/image.cpp.o: CMakeFiles/object_pose.dir/flags.make
+CMakeFiles/object_pose.dir/src/image.cpp.o: ../src/image.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/vagrawal/new/object_pose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/object_pose.dir/src/image.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/object_pose.dir/src/image.cpp.o -c /Users/vagrawal/new/object_pose/src/image.cpp
+
+CMakeFiles/object_pose.dir/src/image.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/object_pose.dir/src/image.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/vagrawal/new/object_pose/src/image.cpp > CMakeFiles/object_pose.dir/src/image.cpp.i
+
+CMakeFiles/object_pose.dir/src/image.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/object_pose.dir/src/image.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/vagrawal/new/object_pose/src/image.cpp -o CMakeFiles/object_pose.dir/src/image.cpp.s
+
+CMakeFiles/object_pose.dir/src/kdtree.cpp.o: CMakeFiles/object_pose.dir/flags.make
+CMakeFiles/object_pose.dir/src/kdtree.cpp.o: ../src/kdtree.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/vagrawal/new/object_pose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/object_pose.dir/src/kdtree.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/object_pose.dir/src/kdtree.cpp.o -c /Users/vagrawal/new/object_pose/src/kdtree.cpp
+
+CMakeFiles/object_pose.dir/src/kdtree.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/object_pose.dir/src/kdtree.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/vagrawal/new/object_pose/src/kdtree.cpp > CMakeFiles/object_pose.dir/src/kdtree.cpp.i
+
+CMakeFiles/object_pose.dir/src/kdtree.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/object_pose.dir/src/kdtree.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/vagrawal/new/object_pose/src/kdtree.cpp -o CMakeFiles/object_pose.dir/src/kdtree.cpp.s
+
 CMakeFiles/object_pose.dir/src/main.cpp.o: CMakeFiles/object_pose.dir/flags.make
 CMakeFiles/object_pose.dir/src/main.cpp.o: ../src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/vagrawal/new/object_pose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/object_pose.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/vagrawal/new/object_pose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/object_pose.dir/src/main.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/object_pose.dir/src/main.cpp.o -c /Users/vagrawal/new/object_pose/src/main.cpp
 
 CMakeFiles/object_pose.dir/src/main.cpp.i: cmake_force
@@ -72,7 +98,7 @@ CMakeFiles/object_pose.dir/src/main.cpp.s: cmake_force
 
 CMakeFiles/object_pose.dir/src/pose.cpp.o: CMakeFiles/object_pose.dir/flags.make
 CMakeFiles/object_pose.dir/src/pose.cpp.o: ../src/pose.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/vagrawal/new/object_pose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/object_pose.dir/src/pose.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/vagrawal/new/object_pose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/object_pose.dir/src/pose.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/object_pose.dir/src/pose.cpp.o -c /Users/vagrawal/new/object_pose/src/pose.cpp
 
 CMakeFiles/object_pose.dir/src/pose.cpp.i: cmake_force
@@ -85,12 +111,16 @@ CMakeFiles/object_pose.dir/src/pose.cpp.s: cmake_force
 
 # Object files for target object_pose
 object_pose_OBJECTS = \
+"CMakeFiles/object_pose.dir/src/image.cpp.o" \
+"CMakeFiles/object_pose.dir/src/kdtree.cpp.o" \
 "CMakeFiles/object_pose.dir/src/main.cpp.o" \
 "CMakeFiles/object_pose.dir/src/pose.cpp.o"
 
 # External object files for target object_pose
 object_pose_EXTERNAL_OBJECTS =
 
+bin/object_pose: CMakeFiles/object_pose.dir/src/image.cpp.o
+bin/object_pose: CMakeFiles/object_pose.dir/src/kdtree.cpp.o
 bin/object_pose: CMakeFiles/object_pose.dir/src/main.cpp.o
 bin/object_pose: CMakeFiles/object_pose.dir/src/pose.cpp.o
 bin/object_pose: CMakeFiles/object_pose.dir/build.make
@@ -144,7 +174,7 @@ bin/object_pose: /usr/local/lib/libopencv_photo.4.1.2.dylib
 bin/object_pose: /usr/local/lib/libopencv_imgproc.4.1.2.dylib
 bin/object_pose: /usr/local/lib/libopencv_core.4.1.2.dylib
 bin/object_pose: CMakeFiles/object_pose.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/vagrawal/new/object_pose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable bin/object_pose"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/vagrawal/new/object_pose/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable bin/object_pose"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/object_pose.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

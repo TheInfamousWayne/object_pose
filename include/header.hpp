@@ -16,7 +16,7 @@ Mat get_image(const string& path, const int idx) {
         printf("No image data \n");
         exit(0);
     }
-//     cvtColor(image, image, COLOR_BGR2RGB);
+     cvtColor(image, image, COLOR_BGR2RGB);
     return image;
 }
 

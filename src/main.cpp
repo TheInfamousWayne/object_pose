@@ -10,21 +10,45 @@ int main(int argc, char** argv ) {
         // getting frames from three cameras
         vector<Mat> frames;
         for (string path : camera_data) {
+            cout << path << "\n";
             frames.push_back( get_image(path, i+1) );
         }
         // sending frames color segmentation
         vector<Image> images;
-        vector<thread> vecOfThreads;
-        for (auto& image : frames) {
-            images.push_back(Image(image));
-            thread th(&Image::startSingleThread, images.back());
-            vecOfThreads.push_back(move(th));
+        int thread_type = 1; // 1 = multi-threaded
+
+        if (thread_type == 0) {
+            for (auto& image : frames) {
+                Image obj(image);
+                obj.startSingleThread();
+                images.push_back(obj);
+            }
         }
-        // waiting for threads to finish
-        for (thread& th : vecOfThreads) {
-            if (th.joinable())
-                th.join();
+        else {
+            vector<thread> vecOfThreads;
+            for (auto& image : frames) {
+                Image obj(image);
+                images.push_back(obj);
+                thread th(&Image::startSingleThread, images.back());
+                vecOfThreads.push_back(move(th));
+            }
+
+            // waiting for threads to finish
+            for (thread& th : vecOfThreads) {
+                if (th.joinable())
+                    th.join();
+            }
         }
+
+        // waiting for random input
+        int a;
+        cin >> a;
+
+        // using stored objects to call class functions
+        for (auto obj : images) {
+            obj.print_pixels();
+        }
+
         cout << "end" << "\n";
     }
     return 0;

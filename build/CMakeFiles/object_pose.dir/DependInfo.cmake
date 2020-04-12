@@ -4,6 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/Users/vagrawal/new/object_pose/src/image.cpp" "/Users/vagrawal/new/object_pose/build/CMakeFiles/object_pose.dir/src/image.cpp.o"
+  "/Users/vagrawal/new/object_pose/src/kdtree.cpp" "/Users/vagrawal/new/object_pose/build/CMakeFiles/object_pose.dir/src/kdtree.cpp.o"
   "/Users/vagrawal/new/object_pose/src/main.cpp" "/Users/vagrawal/new/object_pose/build/CMakeFiles/object_pose.dir/src/main.cpp.o"
   "/Users/vagrawal/new/object_pose/src/pose.cpp" "/Users/vagrawal/new/object_pose/build/CMakeFiles/object_pose.dir/src/pose.cpp.o"
   )

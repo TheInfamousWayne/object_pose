@@ -6,6 +6,20 @@
 
 #IncludeRegexTransform: 
 
+../include/dbscan.hpp
+vector
+-
+queue
+-
+set
+-
+memory
+-
+functional
+-
+kdtree.hpp
+../include/kdtree.hpp
+
 ../include/header.hpp
 stdio.h
 -
@@ -24,6 +38,14 @@ iostream
 typeinfo
 -
 opencv2/opencv.hpp
+-
+
+../include/kdtree.hpp
+
+/Users/vagrawal/new/object_pose/src/image.cpp
+image.hpp
+-
+dbscan.hpp
 -
 
 /Users/vagrawal/new/object_pose/src/main.cpp

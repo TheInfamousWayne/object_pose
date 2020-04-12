@@ -123,6 +123,60 @@ object_pose/fast:
 	$(MAKE) -f CMakeFiles/object_pose.dir/build.make CMakeFiles/object_pose.dir/build
 .PHONY : object_pose/fast
 
+src/image.o: src/image.cpp.o
+
+.PHONY : src/image.o
+
+# target to build an object file
+src/image.cpp.o:
+	$(MAKE) -f CMakeFiles/object_pose.dir/build.make CMakeFiles/object_pose.dir/src/image.cpp.o
+.PHONY : src/image.cpp.o
+
+src/image.i: src/image.cpp.i
+
+.PHONY : src/image.i
+
+# target to preprocess a source file
+src/image.cpp.i:
+	$(MAKE) -f CMakeFiles/object_pose.dir/build.make CMakeFiles/object_pose.dir/src/image.cpp.i
+.PHONY : src/image.cpp.i
+
+src/image.s: src/image.cpp.s
+
+.PHONY : src/image.s
+
+# target to generate assembly for a file
+src/image.cpp.s:
+	$(MAKE) -f CMakeFiles/object_pose.dir/build.make CMakeFiles/object_pose.dir/src/image.cpp.s
+.PHONY : src/image.cpp.s
+
+src/kdtree.o: src/kdtree.cpp.o
+
+.PHONY : src/kdtree.o
+
+# target to build an object file
+src/kdtree.cpp.o:
+	$(MAKE) -f CMakeFiles/object_pose.dir/build.make CMakeFiles/object_pose.dir/src/kdtree.cpp.o
+.PHONY : src/kdtree.cpp.o
+
+src/kdtree.i: src/kdtree.cpp.i
+
+.PHONY : src/kdtree.i
+
+# target to preprocess a source file
+src/kdtree.cpp.i:
+	$(MAKE) -f CMakeFiles/object_pose.dir/build.make CMakeFiles/object_pose.dir/src/kdtree.cpp.i
+.PHONY : src/kdtree.cpp.i
+
+src/kdtree.s: src/kdtree.cpp.s
+
+.PHONY : src/kdtree.s
+
+# target to generate assembly for a file
+src/kdtree.cpp.s:
+	$(MAKE) -f CMakeFiles/object_pose.dir/build.make CMakeFiles/object_pose.dir/src/kdtree.cpp.s
+.PHONY : src/kdtree.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -186,6 +240,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... object_pose"
+	@echo "... src/image.o"
+	@echo "... src/image.i"
+	@echo "... src/image.s"
+	@echo "... src/kdtree.o"
+	@echo "... src/kdtree.i"
+	@echo "... src/kdtree.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
