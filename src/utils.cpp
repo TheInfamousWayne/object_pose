@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <opencv2/opencv.hpp>
-#include <filesystem>
-using namespace cv;
-using namespace std;
-
-namespace fs = __fs::filesystem;
+#include <utils.hpp>
 
 Mat get_image(const string& path, const int idx) {
     Mat image;
@@ -22,7 +15,7 @@ Mat get_image(const string& path, const int idx) {
 
 vector<string> get_directories(const string& s)
 {
-    vector<string> r; 
+    vector<string> r;
     for(auto& p : fs::recursive_directory_iterator(s))
         if (p.is_directory())
             r.push_back(p.path().string());

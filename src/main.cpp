@@ -1,5 +1,6 @@
-#include <header.hpp>
+#include <utils.hpp>
 #include <image.hpp>
+#include <pose.hpp>
 #include <thread>
 
 int main(int argc, char** argv ) {
@@ -15,7 +16,7 @@ int main(int argc, char** argv ) {
         }
         // sending frames color segmentation
         vector<Image> images;
-        int thread_type = 1; // 1 = multi-threaded
+        int thread_type = 0; // 1 = multi-threaded
 
         if (thread_type == 0) {
             for (auto& image : frames) {
@@ -45,11 +46,19 @@ int main(int argc, char** argv ) {
         cin >> a;
 
         // using stored objects to call class functions
-        for (auto obj : images) {
-            obj.print_pixels();
-        }
+//        for (auto obj : images) {
+//            obj.print_pixels();
+//        }
 
         cout << "end" << "\n";
+
+//        Pose Detection from below
+        Pose pose(images);
+        pose.find_pose();
+
+
+
+
     }
     return 0;
 }

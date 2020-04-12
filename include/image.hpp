@@ -1,4 +1,5 @@
-#include <thread> 
+#pragma once
+#include <thread>
 #include <iostream> 
 #include <typeinfo>
 #include <opencv2/opencv.hpp>
@@ -26,6 +27,7 @@ class Image {
 	set<pair<string, int>, cmp> dominant_colors;
 	map<pair<string, string>, pair<int,int>> object_model;
 	vector<pair<string,string>> color_pairs;
+	map<pair<string, string>, pair<float,float>> lines;
 
 
 public:
