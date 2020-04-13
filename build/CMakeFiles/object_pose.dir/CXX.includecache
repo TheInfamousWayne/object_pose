@@ -27,6 +27,12 @@ filesystem
 -
 image.hpp
 -
+math.h
+-
+float.h
+-
+random
+-
 
 /Users/vagrawal/new/object_pose/src/pose.cpp
 pose.hpp

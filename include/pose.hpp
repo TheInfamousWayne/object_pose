@@ -4,10 +4,12 @@
 #include <opencv2/opencv.hpp>
 #include <filesystem>
 #include <image.hpp>
+#include <math.h>
+#include <float.h>
+#include <random>
 
 using namespace cv;
 using namespace std;
-namespace fs = __fs::filesystem;
 
 class Pose {
     vector<Image> image_objects;
@@ -15,6 +17,7 @@ class Pose {
     Mat D; // distortion coeffs
     Mat R; // rotation matrix
     Mat T; // translation matrix
+    Mat reference_center_Point_3d;
     Point3f position_lower_bound;
     Point3f position_upper_bound;
     Point3f orientation_lower_bound;
@@ -29,8 +32,10 @@ class Pose {
 public:
     Pose(vector<Image>);
     void cem();
-    void cost_function();
+    vector<float> cost_function(vector<Point3f>, vector<Point3f>);
     void find_pose();
+    vector<Point3f> random_normal(Point3f, Point3f, int rows, int cols);
+    Point3f power(Point3f, float);
 };
 
 

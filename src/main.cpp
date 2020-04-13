@@ -16,7 +16,7 @@ int main(int argc, char** argv ) {
         }
         // sending frames color segmentation
         vector<Image> images;
-        int thread_type = 0; // 1 = multi-threaded
+        int thread_type = 1; // 1 = multi-threaded
 
         if (thread_type == 0) {
             for (auto& image : frames) {
@@ -42,8 +42,8 @@ int main(int argc, char** argv ) {
         }
 
         // waiting for random input
-        int a;
-        cin >> a;
+//        int a;
+//        cin >> a;
 
         // using stored objects to call class functions
 //        for (auto obj : images) {
@@ -56,8 +56,9 @@ int main(int argc, char** argv ) {
         Pose pose(images);
         pose.find_pose();
 
-
-
+        cout << "Over" ;
+        int a;
+        cin >> a;
 
     }
     return 0;

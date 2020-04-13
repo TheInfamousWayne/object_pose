@@ -177,7 +177,7 @@ void Image::remove_outliers() {
                 }
             }
         }
-        cout << i.first << " " << pixel_dataset[i.first].size() << "\n";
+//        cout << i.first << " " << pixel_dataset[i.first].size() << "\n";
     }
 }
 
@@ -224,9 +224,9 @@ void Image::get_line_between_colors(const string& c1, const string& c2) {
     lr->setIterations(100);
     lr->train(ip, cv::ml::ROW_SAMPLE, op);
 
-    cout << c1 << " " << c2 << "\n";
+//    cout << c1 << " " << c2 << "\n";
     auto thetas = lr->get_learnt_thetas();
-    cout << thetas << " " << thetas.at<float>(0,0) << " " << thetas.at<float>(0,1) << " " << thetas.at<float>(0,2) << endl;
+//    cout << thetas << " " << thetas.at<float>(0,0) << " " << thetas.at<float>(0,1) << " " << thetas.at<float>(0,2) << endl;
 
     float a = -thetas.at<float>(0,0)/thetas.at<float>(0,1);
     float b = -thetas.at<float>(0,2)/thetas.at<float>(0,1);
