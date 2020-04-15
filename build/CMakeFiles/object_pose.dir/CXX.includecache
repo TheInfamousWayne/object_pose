@@ -34,8 +34,24 @@ float.h
 random
 -
 
-/Users/vagrawal/new/object_pose/src/pose.cpp
+../include/utils.hpp
+stdio.h
+-
+stdlib.h
+-
+opencv2/opencv.hpp
+-
+filesystem
+-
+
+/Users/vagrawal/new/object_pose/src/main.cpp
+utils.hpp
+-
+image.hpp
+-
 pose.hpp
+-
+thread
 -
 
 /usr/local/Cellar/opencv/4.1.2/include/opencv4/opencv2/calib3d.hpp

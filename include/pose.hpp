@@ -28,7 +28,6 @@ class Pose {
     Point3f prev_position;
     Point3f var_position;
     Point3f var_orientation;
-    vector<int> xyz;
 
 public:
     Pose(vector<Image>);
@@ -40,6 +39,7 @@ public:
     Point3f mean(vector<Point3f>);
     Point3f var(vector<Point3f>);
     Mat getPoseMatrix(Point3f, Point3f);
+    vector<vector<Point2f>> projected_points;
 };
 
 

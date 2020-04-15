@@ -42,12 +42,8 @@ Pose::Pose (vector<Image> obj) {
 
     var_position = power((position_lower_bound - position_upper_bound)/4.0, 2);
     var_orientation = power((orientation_lower_bound - orientation_upper_bound)/4.0, 2);
-
-//    find_pose();
-    xyz.push_back(1);
-    xyz.push_back(2);
-    xyz.push_back(3);
 }
+
 
 Point3f Pose::power (Point3f p, float n) {
     p.x = pow(p.x, n);
@@ -191,7 +187,6 @@ void Pose::find_pose() {
     proposed_new_cube_pts_w = proposed_new_cube_pts_w.t(); // 8x4
     proposed_new_cube_pts_w = proposed_new_cube_pts_w.colRange(0, proposed_new_cube_pts_w.cols - 1); // 8x3
 
-    vector<vector<Point2f>> projected_points;
     for (int i=0; i<R.cols; i++) { // range (r_vecs)
         vector<Point2f> imgpoints;
         cv::projectPoints(proposed_new_cube_pts_w.t(), R.col(i), T.col(i), K, D, imgpoints);

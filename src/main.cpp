@@ -56,6 +56,15 @@ int main(int argc, char** argv ) {
         int a;
         cin >> a;
 
+        for (int i=0; i<images.size(); i++) {
+            vector<Point2f> imgpoints = pose.projected_points[i];
+            for (auto& it : images[i].object_model) {
+
+//                ax.plot([imgpoints[it.second.first].x, imgpoints[it.second.second].y] , [imgpoints[it.second.first].y, imgpoints[it.second.second].x])
+//                cvtColor(plotdata, plotdata, COLOR_RGB2BGR);
+            }
+        }
+
     }
     return 0;
 }
