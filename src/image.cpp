@@ -118,13 +118,6 @@ void Image::find_dominant_colors(const int N) { // N dominant colors
     while (dominant_colors.size() > N) {
         dominant_colors.erase(prev(dominant_colors.end()));
     }
-
-//    // Printing the remaining elements
-//    cout << "***\n";
-//    for (auto i : dominant_colors) {
-//        cout << i.first << " " << i.second << "\n";
-//    }
-//    cout << "***\n";
 }
 
 void Image::show() {
@@ -167,7 +160,6 @@ void Image::remove_outliers() {
 
     // Removing noise pixels from pixel dataset
     for (auto& i : dominant_colors) {
-//        cout << i.first << " " << pixel_dataset[i.first].size() << "\n";
         for (auto it = pixel_dataset[i.first].begin(); it != pixel_dataset[i.first].end(); it++) {
             for (auto& k : noise) {
                 auto noisy_pixel = make_pair(input_data[k][0], input_data[k][1]);
@@ -177,7 +169,6 @@ void Image::remove_outliers() {
                 }
             }
         }
-//        cout << i.first << " " << pixel_dataset[i.first].size() << "\n";
     }
 }
 
@@ -224,7 +215,6 @@ void Image::get_line_between_colors(const string& c1, const string& c2) {
     lr->setIterations(100);
     lr->train(ip, cv::ml::ROW_SAMPLE, op);
 
-//    cout << c1 << " " << c2 << "\n";
     auto thetas = lr->get_learnt_thetas();
 //    cout << thetas << " " << thetas.at<float>(0,0) << " " << thetas.at<float>(0,1) << " " << thetas.at<float>(0,2) << endl;
 

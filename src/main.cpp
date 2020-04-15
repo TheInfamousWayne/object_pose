@@ -41,20 +41,13 @@ int main(int argc, char** argv ) {
             }
         }
 
-        // using stored objects to call class functions
-//        for (auto obj : images) {
-//            obj.print_pixels();
-//        }
+        cout << "Segmentation complete" << "\n";
 
-        cout << "end" << "\n";
-
-//        Pose Detection from below
+        // Pose Detection from below
         Pose pose(images);
         pose.find_pose();
 
-        cout << "Over" ;
-        int a;
-        cin >> a;
+        cout << "Pose detected\n" ;
 
         for (int i=0; i<images.size(); i++) {
             vector<Point2f> imgpoints = pose.projected_points[i];

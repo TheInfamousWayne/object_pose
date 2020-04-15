@@ -1,4 +1,5 @@
 # object_pose
+Object Tracking for the trifinger robot
 
 $ mkdir build
 
