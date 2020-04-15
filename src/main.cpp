@@ -54,7 +54,7 @@ int main(int argc, char** argv ) {
 
 //        Pose Detection from below
         Pose pose(images);
-        pose.find_pose();
+//        pose.find_pose();
 
         cout << "Over" ;
         int a;

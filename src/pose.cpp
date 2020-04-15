@@ -1,6 +1,6 @@
 #include <pose.hpp>
 
-Pose::Pose(vector<Image> obj) {
+Pose::Pose (vector<Image> obj) {
     image_objects = obj;
     float K[3][3] = {{589.607902244274, 0.0, 366.49661815699994},
                      {0.0, 590.1790734214388, 297.98736394590526},
@@ -31,6 +31,8 @@ Pose::Pose(vector<Image> obj) {
     this->T = Mat(3,3, CV_32F, &T);
     this->reference_center_Point_3d = Mat(8,4, CV_32F, &reference_center_Point_3d);
 
+//    cout << "*****\n" << this->T << endl << this->R << endl << this->R.col(0) << "\n*****\n";
+
     // Setting the bounds for pose estimation
     position_lower_bound = Point3f(-0.5, -0.5, -0.5);
     position_upper_bound = Point3f(0.5, 0.5, 0.5);
@@ -43,9 +45,10 @@ Pose::Pose(vector<Image> obj) {
     var_position = power((position_lower_bound - position_upper_bound)/4.0, 2);
     var_orientation = power((orientation_lower_bound - orientation_upper_bound)/4.0, 2);
 
+    find_pose();
 }
 
-Point3f Pose::power(Point3f p, float n) {
+Point3f Pose::power (Point3f p, float n) {
     p.x = pow(p.x, n);
     p.y = pow(p.y, n);
     p.z = pow(p.z, n);
@@ -54,7 +57,7 @@ Point3f Pose::power(Point3f p, float n) {
 
 
 
-vector<Point3f> Pose::random_normal(Point3f mean, Point3f var, int rows, int cols) {
+vector<Point3f> Pose::random_normal (Point3f mean, Point3f var, int rows, int cols) {
     vector<Point3f> data;
     std::default_random_engine gen;
     std::normal_distribution<float> d1{mean.x, var.x};
@@ -73,34 +76,35 @@ vector<Point3f> Pose::random_normal(Point3f mean, Point3f var, int rows, int col
 }
 
 
-vector<float> Pose::cost_function(vector<Point3f> proposed_translation, vector<Point3f> proposed_orientation) {
+vector<float> Pose::cost_function (vector<Point3f> proposed_translation, vector<Point3f> proposed_orientation) {
     int number_of_particles = proposed_translation.size();
+    cout << "\nNumber of particles: " << number_of_particles << endl;
     vector<Mat> pose;
-    vector<Mat> proposed_new_cube_pts_w;
+    Mat proposed_new_cube_pts_w;
+//    vector<Point3f> proposed_new_cube_pts_w;
 
     for (int i=0; i<number_of_particles; i++) {
-        Mat dest;
-        cv::Rodrigues(Mat(proposed_orientation[i]), dest);
-        cv::hconcat(dest, Mat(proposed_translation[i]), dest);
-        vector<float> temp = {0, 0, 0, 1};
-        dest.push_back(Mat(1,4, CV_32F, &temp));
-        pose.push_back(dest);
+        Mat rotation_matrix;
+        cv::Rodrigues(Mat(proposed_orientation[i]), rotation_matrix);
+        Mat translation = (Mat_<float>(3,1) << proposed_translation[i].x, proposed_translation[i].y, proposed_translation[i].z );
+        cv::hconcat(rotation_matrix, translation, rotation_matrix);
+        float temp[4] = {0, 0, 0, 1.0};
+        rotation_matrix.push_back(Mat(1,4, CV_32F, &temp));
+        pose.push_back(rotation_matrix);
+        Mat new_pt = rotation_matrix * reference_center_Point_3d.t();
+        new_pt = new_pt.t();
+        proposed_new_cube_pts_w.push_back(new_pt.colRange(0, new_pt.cols - 1));
 
-        Mat new_pt = dest * reference_center_Point_3d.t();
-        proposed_new_cube_pts_w.push_back(new_pt.t());
+//        for (int i=0; i<new_pt.rows; i++) {
+//            proposed_new_cube_pts_w.push_back(Point3f(new_pt.at<float>(i,0), new_pt.at<float>(i,1), new_pt.at<float>(i,2)));
+//        }
     }
-
-    for (int i=0; i<3; i++) {
-        Mat imgpoints;
-        Mat input = Mat(number_of_particles * reference_center_Point_3d.rows, 4, CV_32F, &proposed_new_cube_pts_w);
-        input = input.colRange(0,input.cols-1);
-        cout << R << endl;
-        cout << R.col(i) << endl;
-        cout << T.col(i) << endl;
-        int a;
-        cin >>a;
-//        cv::projectPoints(input.t(), R.col(i), T.col(i), K, D, imgpoints);
-
+    cout << "\nproposd: " << proposed_new_cube_pts_w.rows << " " << proposed_new_cube_pts_w.cols << endl;
+    for (int i=0; i<3; i++) { // range (r_vecs)
+        vector<Point2f> imgpoints;
+        cv::projectPoints(proposed_new_cube_pts_w, R.col(i), T.col(i), K, D, imgpoints);
+        for (auto& t : imgpoints)
+            cout << t << "\n******\n";
     }
 
 
@@ -131,9 +135,6 @@ void Pose::cem() {
 }
 
 void Pose::find_pose() {
-    cout << this->R << endl;
-    cout << R.col(0) << endl;
-    cout << T.col(0) << endl;
     cem(); // calculates mean_position and mean_orientation
 
 }

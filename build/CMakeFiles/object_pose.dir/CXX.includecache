@@ -6,6 +6,20 @@
 
 #IncludeRegexTransform: 
 
+../include/dbscan.hpp
+vector
+-
+queue
+-
+set
+-
+memory
+-
+functional
+-
+kdtree.hpp
+../include/kdtree.hpp
+
 ../include/image.hpp
 thread
 -
@@ -15,6 +29,8 @@ typeinfo
 -
 opencv2/opencv.hpp
 -
+
+../include/kdtree.hpp
 
 ../include/pose.hpp
 thread
@@ -32,6 +48,32 @@ math.h
 float.h
 -
 random
+-
+
+../include/utils.hpp
+stdio.h
+-
+stdlib.h
+-
+opencv2/opencv.hpp
+-
+filesystem
+-
+
+/Users/vagrawal/new/object_pose/src/image.cpp
+image.hpp
+-
+dbscan.hpp
+-
+
+/Users/vagrawal/new/object_pose/src/main.cpp
+utils.hpp
+-
+image.hpp
+-
+pose.hpp
+-
+thread
 -
 
 /Users/vagrawal/new/object_pose/src/pose.cpp
