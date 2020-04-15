@@ -41,10 +41,6 @@ int main(int argc, char** argv ) {
             }
         }
 
-        // waiting for random input
-//        int a;
-//        cin >> a;
-
         // using stored objects to call class functions
 //        for (auto obj : images) {
 //            obj.print_pixels();
@@ -54,7 +50,7 @@ int main(int argc, char** argv ) {
 
 //        Pose Detection from below
         Pose pose(images);
-//        pose.find_pose();
+        pose.find_pose();
 
         cout << "Over" ;
         int a;

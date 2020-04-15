@@ -28,6 +28,7 @@ class Pose {
     Point3f prev_position;
     Point3f var_position;
     Point3f var_orientation;
+    vector<int> xyz;
 
 public:
     Pose(vector<Image>);
@@ -36,6 +37,9 @@ public:
     void find_pose();
     vector<Point3f> random_normal(Point3f, Point3f, int rows, int cols);
     Point3f power(Point3f, float);
+    Point3f mean(vector<Point3f>);
+    Point3f var(vector<Point3f>);
+    Mat getPoseMatrix(Point3f, Point3f);
 };
 
 

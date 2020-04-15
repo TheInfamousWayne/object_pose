@@ -25,9 +25,8 @@ class Image {
         }
     };
 	set<pair<string, int>, cmp> dominant_colors;
-	map<pair<string, string>, pair<int,int>> object_model;
 	vector<pair<string,string>> color_pairs;
-	map<pair<string, string>, pair<float,float>> lines;
+
 
 
 public:
@@ -45,6 +44,8 @@ public:
 	void remove_outliers();
 	void make_valid_combinations();
 	void get_line_between_colors(const string&, const string&);
+	map<pair<string, string>, pair<float,float>> lines;
+	map<pair<string, string>, pair<int,int>> object_model;
 };
 
 
