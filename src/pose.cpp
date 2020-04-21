@@ -79,28 +79,31 @@ Mat Pose::getPoseMatrix(Point3f orientation, Point3f position) {
     cv::hconcat(rotation_matrix, translation, rotation_matrix);
     float temp[4] = {0, 0, 0, 1.0};
     rotation_matrix.push_back(Mat(1,4, CV_32F, &temp));
-    return rotation_matrix;
+    return rotation_matrix; //4x4
 }
 
 vector<float> Pose::cost_function (vector<Point3f> proposed_translation, vector<Point3f> proposed_orientation) {
     int number_of_particles = proposed_translation.size();
     vector<Mat> pose;
-    Mat proposed_new_cube_pts_w;
-
+    //Mat proposed_new_cube_pts_w;
+    vector<Point3f> proposed_new_cube_pts_w; 
+ 
     for (int i=0; i<number_of_particles; i++) { // initialization of pose
         Mat rotation_matrix = getPoseMatrix(proposed_orientation[i], proposed_translation[i]);
         pose.push_back(rotation_matrix);
         Mat new_pt = rotation_matrix * reference_center_Point_3d.t();
         new_pt = new_pt.t(); // 8x4
-        proposed_new_cube_pts_w.push_back(new_pt.colRange(0, new_pt.cols - 1)); // 8x3
-
+        //proposed_new_cube_pts_w.push_back(new_pt.colRange(0, new_pt.cols - 1)); // 8x3
+        for (int i=0; i<new_pt.rows ; i++) {
+	    proposed_new_cube_pts_w.push_back(Point3f(new_pt.at<float>(i,0), new_pt.at<float>(i,1), new_pt.at<float>(i,2)));
+	}
     }
 
 //    vector<vector<Mat>> projected_points;
     vector<float> error(number_of_particles, 0.0);
     for (int i=0; i<R.cols; i++) { // range (r_vecs)
         vector<Point2f> imgpoints;
-        cv::projectPoints(proposed_new_cube_pts_w.t(), R.col(i), T.col(i), K, D, imgpoints);
+        cv::projectPoints(proposed_new_cube_pts_w, R.col(i), T.col(i), K, D, imgpoints);
         Mat _8Nx2 = Mat(imgpoints);
         vector<Mat> _Nx8x2;
         for (int i=0; i<_8Nx2.rows; i+=8) {
@@ -187,9 +190,14 @@ void Pose::find_pose() {
     proposed_new_cube_pts_w = proposed_new_cube_pts_w.t(); // 8x4
     proposed_new_cube_pts_w = proposed_new_cube_pts_w.colRange(0, proposed_new_cube_pts_w.cols - 1); // 8x3
 
+    vector<Point3f> _new_pts;
+    for (int i=0; i<proposed_new_cube_pts_w.rows; i++) {
+        _new_pts.push_back(Point3f(proposed_new_cube_pts_w.at<float>(i,0), proposed_new_cube_pts_w.at<float>(i,1), proposed_new_cube_pts_w.at<float>(i,2)));
+    }
+
     for (int i=0; i<R.cols; i++) { // range (r_vecs)
         vector<Point2f> imgpoints;
-        cv::projectPoints(proposed_new_cube_pts_w.t(), R.col(i), T.col(i), K, D, imgpoints);
+        cv::projectPoints(_new_pts, R.col(i), T.col(i), K, D, imgpoints);
         projected_points.push_back(imgpoints);// ? projected_points.append(imgpoints[:, 0, :])
     }
 }
