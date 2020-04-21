@@ -16,8 +16,8 @@ Mat get_image(const string& path, const int idx) {
 vector<string> get_directories(const string& s)
 {
     vector<string> r;
-    for(auto& p : fs::recursive_directory_iterator(s))
-        if (p.is_directory())
+    for(auto p : fs::recursive_directory_iterator(s))
+        if (fs::is_directory(p))
             r.push_back(p.path().string());
     return r;
 }

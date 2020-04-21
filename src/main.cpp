@@ -4,7 +4,7 @@
 #include <thread>
 
 int main(int argc, char** argv ) {
-    cout << "Current path is " << fs::current_path() << "\n";
+//    cout << "Current path is " << fs::current_path() << "\n";
     vector<string> camera_data = get_directories("../data/camera");
 
     for (size_t i = 0; i < 3; ++i) {

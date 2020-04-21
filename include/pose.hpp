@@ -2,7 +2,6 @@
 #include <thread>
 #include <iostream>
 #include <opencv2/opencv.hpp>
-#include <filesystem>
 #include <image.hpp>
 #include <math.h>
 #include <float.h>
