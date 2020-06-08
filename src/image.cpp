@@ -1,6 +1,6 @@
 #include <image.hpp>
 #include <dbscan.hpp>
-
+//#include <bits/stdc++.h>
 
 Image::Image (Mat img) {
 	image = img;
@@ -74,14 +74,28 @@ void Image::startSingleThread() {
 //	for (auto& i : colors) {
 //		pipeline(i.first);
 //	}
-	gmm_mask(); // create_pixel_dataset is called within this
-	find_dominant_colors(3);
+    std::time_t start, end;
+    std::time(&start);
+    ios_base::sync_with_stdio(false);
+    gmm_mask(); // create_pixel_dataset is called within this
+    std::time(&end);
+    double time_taken = double(end - start);
+    cout << "Time taken by gmm is : " << fixed
+         << time_taken << setprecision(5);
+    cout << " sec " << endl;
+    find_dominant_colors(3);
 
 //	for (auto& r : dominant_colors) {
 //	    cout << r.first << " ---- " << r.second << " " << dominant_colors.size() << endl;
 //	}
 
+    std::time(&start);
 	bool status = denoise();
+    std::time(&end);
+    time_taken = double(end - start);
+    cout << "Time taken by denoise is : " << fixed
+         << time_taken << setprecision(5);
+    cout << " sec " << endl;
 
 	for (auto& i : dominant_colors) {
 	    Mat output, image_bgr;
@@ -106,6 +120,10 @@ void Image::pipeline(const string& color) {
 }
 
 void Image::gmm_mask() {
+
+    std::time_t start, end;
+    double time_taken;
+
 
     map<string, float> threshold_ = {
             {"red", -29.0},
@@ -144,7 +162,14 @@ void Image::gmm_mask() {
         if (status == false) {
             cout << "loading failed for " << color.first << endl;
         }
+
+        std::time(&start);
         auto result = model.log_p(input_data);
+        std::time(&end);
+        time_taken = double(end - start);
+        cout << "Time taken by model prediction is : " << fixed
+             << time_taken << setprecision(5);
+        cout << " sec. " << color.first << endl;
 
         idx2color[color_idx] = color.first;
         for (int row_idx = 0; row_idx < result.size(); row_idx++) {
@@ -181,12 +206,18 @@ void Image::gmm_mask() {
             masks[color.first].at<double>(idx,0) = 255.0;
         }
 
-        cout << color.first << " " << pixel_idx[color.first].size() << endl;
+//        cout << color.first << " " << pixel_idx[color.first].size() << endl;
 
         masks[color.first] = masks[color.first].reshape(1, image.rows);
         masks[color.first].convertTo(masks[color.first], CV_8U);
 
+        std::time(&start);
         create_pixel_dataset(color.first);
+        std::time(&end);
+        time_taken = double(end - start);
+        cout << "Time taken by pixel dataset is : " << fixed
+             << time_taken << setprecision(5);
+        cout << " sec " << endl;
     }
 }
 
@@ -257,9 +288,6 @@ void Image::clean_mask(const string& color) {
         final_idx.resize(it - final_idx.begin());
         pixel_idx[color] = final_idx;
     }
-
-
-
 }
 
 void Image::create_mask(const string& color) {
